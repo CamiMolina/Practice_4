@@ -4,36 +4,49 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace Practica_4.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("/api/students")]
+    public class StudentsController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        private readonly IConfiguration _config;
+        public StudentsController(IConfiguration config)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
+            _config = config;
         }
-
         [HttpGet]
-        public IEnumerable<Student> Get()
+        public List<Student> GetStudent()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Student
+            string projectTitle = _config.GetSection("Project").GetSection("Title").Value;
+            string dbConnection = _config.GetConnectionString("Database");
+            Console.WriteLine($"We are connecting to...{dbConnection}");
+            return new List<Student>() {
+            new Student() { NameStudent = $"Daniel " },
+            new Student() { NameStudent = $"Camila" },
+            new Student() { NameStudent = $"Adrian" }
+            };
+        }
+        [HttpPost]
+        public Student CreateStudent([FromBody] string studentName)
+        {
+            return new Student()
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                NameStudent = studentName
+            };
+        }
+        [HttpPut]
+        public Student UpdateStudent([FromBody] Student student)
+        {
+            student.NameStudent = "updated";
+            return student;
+        }
+        [HttpDelete]
+        public Student DeleteStudent([FromBody] Student student)
+        {
+            return student;
         }
     }
 }
