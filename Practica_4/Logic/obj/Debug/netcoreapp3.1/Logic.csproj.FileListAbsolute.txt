@@ -1,0 +1,3 @@
+C:\Users\FATEC TECHNOLOHY\Documents\Certificacion 1\Practice_4\Practica_4\Logic\obj\Debug\netcoreapp3.1\Logic.csprojAssemblyReference.cache
+C:\Users\FATEC TECHNOLOHY\Documents\Certificacion 1\Practice_4\Practica_4\Logic\obj\Debug\netcoreapp3.1\Logic.AssemblyInfoInputs.cache
+C:\Users\FATEC TECHNOLOHY\Documents\Certificacion 1\Practice_4\Practica_4\Logic\obj\Debug\netcoreapp3.1\Logic.AssemblyInfo.cs
